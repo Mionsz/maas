@@ -29,7 +29,7 @@ PUSH_IMAGE        ?= false
 # use this variable for image labels added in internal build process
 LABEL             ?= org.airshipit.build=community
 COMMIT            ?= $(shell git rev-parse HEAD)
-IMAGE_NAME        := maas-rack-controller maas-region-controller sstream-cache
+IMAGE_NAME        := maas-rack-controller-focal maas-region-controller-focal sstream-cache
 BUILD_DIR         := $(shell mktemp -d)
 HELM              := $(BUILD_DIR)/helm
 SSTREAM_IMAGE     := "https://images.maas.io/ephemeral-v3/stable/"
@@ -57,7 +57,7 @@ images: $(IMAGE_NAME)
 $(IMAGE_NAME):
 	@echo
 	@echo "===== Processing [$@] image ====="
-	@make build IMAGE=${DOCKER_REGISTRY}/${IMAGE_PREFIX}/$@:${IMAGE_TAG} IMAGE_DIR=images/$@
+	@make build IMAGE=${DOCKER_REGISTRY}/${IMAGE_PREFIX}/$@:${IMAGE_TAG} IMAGE_DIR=${IMG_COMMON_DIR}/$@
 
 # Create tgz of the chart
 .PHONY: charts
